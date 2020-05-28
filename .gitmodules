@@ -1,0 +1,3 @@
+[submodule "include/RASMlite"]
+	path = include/RASMlite
+	url = https://github.com/Nekhera/RASMlite.git
