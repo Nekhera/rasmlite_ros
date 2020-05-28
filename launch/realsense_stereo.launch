@@ -1,0 +1,23 @@
+<launch>
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch"/>
+
+  <node pkg="nodelet" type="nodelet" name="standalone_nodelet" args="manager"/>
+
+  <node pkg="nodelet" type="nodelet" name="disparity"
+        args="load stereo_image_proc/disparity standalone_nodelet">
+    <remap from="/left/image_rect" to="/camera/infra1/image_rect_raw"/>
+    <remap from="/left/camera_info" to="/camera/infra1/camera_info"/>
+    <remap from="/right/image_rect" to="/camera/infra2/image_rect_raw"/>
+    <remap from="/right/camera_info" to="/camera/infra2/camera_info"/>
+  </node>
+
+  <node pkg="nodelet" type="nodelet" name="point_cloud2"
+        args="load stereo_image_proc/point_cloud2 standalone_nodelet">
+    <remap from="/left/image_rect_color" to="/camera/infra1/image_rect_raw"/>
+    <remap from="/left/camera_info" to="/camera/infra1/camera_info"/>
+    <remap from="/right/camera_info" to="/camera/infra2/camera_info"/>
+  </node>
+
+  <node pkg="rasmlite_ros" type="decimation_node" name="decimation_node"/>
+
+</launch>

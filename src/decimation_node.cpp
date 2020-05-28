@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
   ros::NodeHandle nh;
   point_pub = nh.advertise<PointCloud<PointXYZRGB>>("/points/decimated", 1);
 
-  nh.subscribe("/points", 1, RASMlite::decimation::pointcloudCallback);
+  nh.subscribe("/points2", 1, RASMlite::decimation::pointcloudCallback);
   ros::spin();
   return 0;
 }
